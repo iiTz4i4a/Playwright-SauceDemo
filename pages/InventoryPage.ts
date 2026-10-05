@@ -8,6 +8,10 @@ export class InventoryPage {
   readonly inventoryItemName: Locator;
   readonly inventoryItemDescription: Locator;
   readonly inventoryItemPrice: Locator;
+  readonly inventoryItemImages: Locator;
+  readonly inventoryItemCartButton: Locator;
+  readonly shoppingCartIcon: Locator
+  readonly hamburgerMenu: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -17,5 +21,9 @@ export class InventoryPage {
     this.inventoryItemName = page.locator('[data-test="inventory-item-name"]')
     this.inventoryItemDescription = page.locator('[data-test="inventory-item-desc"]')
     this.inventoryItemPrice = page.locator('[data-test="inventory-item-price"]')
+    this.inventoryItemImages = page.locator("img.inventory_item_img")
+    this.inventoryItemCartButton = page.getByRole("button",{name:"Add to cart"})
+    this.shoppingCartIcon = page.locator("a.shopping_cart_link")
+    this.hamburgerMenu = page.locator("button#react-burger-menu-btn")
   }
 }

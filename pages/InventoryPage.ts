@@ -4,13 +4,14 @@ export class InventoryPage {
   readonly page: Page;
   readonly productHeader: Locator;
   readonly inventoryList: Locator;
-  // readonly inventoryItem: Locator;
+  readonly inventoryItem: Locator;
   readonly inventoryItemName: Locator;
   readonly inventoryItemDescription: Locator;
   readonly inventoryItemPrice: Locator;
   readonly inventoryItemImages: Locator;
   readonly inventoryItemCartButton: Locator;
   readonly shoppingCartIcon: Locator
+  readonly shoppingCartBadge:Locator;
   readonly hamburgerMenu: Locator;
   readonly navigationMenu : Locator;
   readonly navigationMenuClose: Locator;
@@ -35,5 +36,6 @@ export class InventoryPage {
     this.navigationSubLinks = page.locator("a.menu-item.submenu-item")
     this.navigationMenuClose = page.locator("button#react-burger-cross-btn")
     this.navigationMenuLinks = page.locator("a.bm-item.menu-item")
+    this.shoppingCartBadge = page.locator("span.shopping_cart_badge")
   }
 }

@@ -4,7 +4,7 @@ export class InventoryPage {
   readonly page: Page;
   readonly productHeader: Locator;
   readonly inventoryList: Locator;
-  readonly inventoryItem: Locator;
+  // readonly inventoryItem: Locator;
   readonly inventoryItemName: Locator;
   readonly inventoryItemDescription: Locator;
   readonly inventoryItemPrice: Locator;
@@ -12,6 +12,11 @@ export class InventoryPage {
   readonly inventoryItemCartButton: Locator;
   readonly shoppingCartIcon: Locator
   readonly hamburgerMenu: Locator;
+  readonly navigationMenu : Locator;
+  readonly navigationMenuClose: Locator;
+  readonly navigationMenuLinks: Locator;
+  readonly navigationSubMenu: Locator;
+  readonly navigationSubLinks: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -25,5 +30,10 @@ export class InventoryPage {
     this.inventoryItemCartButton = page.getByRole("button",{name:"Add to cart"})
     this.shoppingCartIcon = page.locator("a.shopping_cart_link")
     this.hamburgerMenu = page.locator("button#react-burger-menu-btn")
+    this.navigationMenu = page.locator("nav.bm-item-list")
+    this.navigationSubMenu = page.locator("div#dynamic_catalog_submenu")
+    this.navigationSubLinks = page.locator("a.menu-item.submenu-item")
+    this.navigationMenuClose = page.locator("button#react-burger-cross-btn")
+    this.navigationMenuLinks = page.locator("a.bm-item.menu-item")
   }
 }

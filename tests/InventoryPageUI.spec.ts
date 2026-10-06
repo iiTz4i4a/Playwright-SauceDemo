@@ -13,30 +13,90 @@ test.describe("Inventory Page UI", () => {
     await loginPage.login("standard_user", "secret_sauce");
   });
 
-  test("Checking that we are in Inventory Page", async ({ page }) => {
+  test("should navigate to the Inventory page after login", async ({ page }) => {
     await expect(page).toHaveURL("https://www.saucedemo.com/inventory.html");
   });
 
-  test("Inventory Shopping Cart icon is visible", async () => {
+  test("should display the shopping cart icon", async () => {
     await expect(inventoryPage.shoppingCartIcon).toBeVisible();
   });
 
-  test("Inventory Hamburger Menu is visible", async () => {
+  test("should display the hamburger menu", async () => {
     await expect(inventoryPage.hamburgerMenu).toBeVisible();
   });
 
-  // TODO: Create a test-case for Opening navigation Bar && Closing it && Checking The available links
-
-  test("Products Header is Visible", async () => {
-    await expect(inventoryPage.productHeader).toHaveText("Products");
-    await expect(inventoryPage.productHeader).toBeVisible();
+  test("should open the navigation menu", async () => {
+    await inventoryPage.hamburgerMenu.click()
+    await expect(inventoryPage.navigationMenu).toBeVisible()
   });
 
-  test("Inventory List is Visible", async () => {
+  test("should close the navigation menu", async()=>{
+    await inventoryPage.hamburgerMenu.click()
+    await expect(inventoryPage.navigationMenu).toBeVisible()
+    await inventoryPage.navigationMenuClose.click()
+    await expect(inventoryPage.navigationMenu).not.toBeVisible()
+
+  })
+
+  test("should display all navigation menu links", async()=>{
+    await inventoryPage.hamburgerMenu.click()
+    await expect(inventoryPage.navigationMenu).toBeVisible()
+    await expect(inventoryPage.navigationMenuLinks).toHaveCount(5)
+    await expect(inventoryPage.navigationMenuLinks).toHaveText([
+      "All Items",
+      "Dynamic Catalog",
+      "About",
+      "Logout",
+      "Reset App State",
+    ])
+
+  })
+
+  test("should display the Dynamic Catalog submenu", async()=>{
+    await inventoryPage.hamburgerMenu.click()
+    await expect(inventoryPage.navigationMenu).toBeVisible()
+    await inventoryPage.navigationMenuLinks.getByText(      "Dynamic Catalog").click()
+    await expect(inventoryPage.navigationSubMenu).toBeVisible()
+    await expect(inventoryPage.navigationSubLinks).toHaveCount(3)
+    await expect(inventoryPage.navigationSubLinks).toHaveText([
+      "Lazy Load",
+      "Spinner",
+      "Slider",
+    ])
+  })
+
+  
+  test("should navigate to the Inventory page when clicking All Items", async({page})=>{
+    await inventoryPage.hamburgerMenu.click()
+    await expect(inventoryPage.navigationMenu).toBeVisible()
+    await inventoryPage.navigationMenuLinks.getByText(      "All Items").click()
+    await expect(page).toHaveURL("https://www.saucedemo.com/inventory.html")
+  })
+  
+  test("should navigate to the Sauce Labs website when clicking About", async({page})=>{
+    await inventoryPage.hamburgerMenu.click()
+    await expect(inventoryPage.navigationMenu).toBeVisible()
+    await inventoryPage.navigationMenuLinks.getByText(      "About").click()
+    await expect(page).toHaveURL("https://saucelabs.com/")
+  })
+
+test("should log out the user from the navigation menu", async({page})=>{
+    await inventoryPage.hamburgerMenu.click()
+    await expect(inventoryPage.navigationMenu).toBeVisible()
+    await inventoryPage.navigationMenuLinks.getByText(      "Logout").click()
+    await expect(page).toHaveURL("https://www.saucedemo.com/")
+  })
+
+  test("should display the Products header", async () => {
+    await expect(inventoryPage.productHeader).toBeVisible();
+    await expect(inventoryPage.productHeader).toHaveText("Products");
+  });
+
+  test("should display the inventory list", async () => {
     await expect(inventoryPage.inventoryList).toBeVisible();
   });
 
-  test("Inventory Items Have Names", async () => {
+  test("should display all inventory item names", async () => {
     await expect(inventoryPage.inventoryItemName).toHaveCount(6);
 
     for (const item of await inventoryPage.inventoryItemName.all()) {
@@ -44,7 +104,7 @@ test.describe("Inventory Page UI", () => {
     }
   });
 
-  test("Inventory Item Names are correct", async () => {
+  test("should display correct inventory item names", async () => {
     await expect(inventoryPage.inventoryItemName).toHaveCount(6);
     await expect(inventoryPage.inventoryItemName).toHaveText([
       "Sauce Labs Backpack",
@@ -56,7 +116,7 @@ test.describe("Inventory Page UI", () => {
     ]);
   });
 
-  test("Inventory Items Have Descriptions", async () => {
+  test("should display descriptions for all inventory items", async () => {
     await expect(inventoryPage.inventoryItemDescription).toHaveCount(6);
 
     for (const item of await inventoryPage.inventoryItemDescription.all()) {
@@ -64,7 +124,7 @@ test.describe("Inventory Page UI", () => {
     }
   });
 
-  test("Inventory Items Have Prices", async () => {
+  test("should display prices for all inventory items", async () => {
     await expect(inventoryPage.inventoryItemPrice).toHaveCount(6);
 
     for (const item of await inventoryPage.inventoryItemPrice.all()) {
@@ -72,7 +132,7 @@ test.describe("Inventory Page UI", () => {
     }
   });
 
-  test("Inventory Items Have Correct Prices", async () => {
+  test("should display correct prices for all inventory items", async () => {
     await expect(inventoryPage.inventoryItemPrice).toHaveCount(6);
     await expect(inventoryPage.inventoryItemPrice).toHaveText([
       "$29.99",
@@ -84,11 +144,11 @@ test.describe("Inventory Page UI", () => {
     ]);
   });
 
-  test("Inventory Items Have Image", async () => {
+  test("should display images for all inventory items", async () => {
     await expect(inventoryPage.inventoryItemImages).toHaveCount(6);
   });
 
-  test("Inventory Items Have Corrct Images", async () => {
+  test("should display correct images for all inventory items", async () => {
     const expectedImageAlt = [
       "Sauce Labs Backpack",
       "Sauce Labs Bike Light",
@@ -114,7 +174,7 @@ test.describe("Inventory Page UI", () => {
     }
   });
 
-  test("Inventory Items Have Add To Cart Button", async () => {
+  test("should display an Add to Cart button for each inventory item", async () => {
     await expect(inventoryPage.inventoryItemCartButton).toHaveCount(6);
   });
 });

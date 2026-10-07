@@ -14,10 +14,12 @@ export class LoginPage {
     this.loginButton = page.getByRole("button", { name: "Login" });
     this.errorMessage = page.getByRole("alert");
   }
-  async goTo() {
+
+	async goTo() {
     await this.page.goto("https://www.saucedemo.com/");
   }
-  async login(usr: string, psw: string) {
+
+	async login(usr: string, psw: string) {
     await this.username.fill(usr);
     await this.password.fill(psw);
     await this.loginButton.click();

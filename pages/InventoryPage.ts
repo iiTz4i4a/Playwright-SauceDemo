@@ -17,7 +17,7 @@ export class InventoryPage {
   readonly navigationMenuClose: Locator;
   readonly navigationMenuLinks: Locator;
   readonly navigationSubMenu: Locator;
-  readonly navigationSubLinks: Locator;
+	readonly navigationSubLinks: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -36,6 +36,6 @@ export class InventoryPage {
     this.navigationSubLinks = page.locator("a.menu-item.submenu-item")
     this.navigationMenuClose = page.locator("button#react-burger-cross-btn")
     this.navigationMenuLinks = page.locator("a.bm-item.menu-item")
-    this.shoppingCartBadge = page.locator("span.shopping_cart_badge")
+		this.shoppingCartBadge = page.locator("span.shopping_cart_badge")
   }
 }

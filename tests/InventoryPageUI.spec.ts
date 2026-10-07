@@ -65,14 +65,14 @@ test.describe("Inventory Page UI", () => {
     ])
   })
 
-  
+
   test("should navigate to the Inventory page when clicking All Items", async({page})=>{
     await inventoryPage.hamburgerMenu.click()
     await expect(inventoryPage.navigationMenu).toBeVisible()
     await inventoryPage.navigationMenuLinks.getByText(      "All Items").click()
     await expect(page).toHaveURL("https://www.saucedemo.com/inventory.html")
   })
-  
+
   test("should navigate to the Sauce Labs website when clicking About", async({page})=>{
     await inventoryPage.hamburgerMenu.click()
     await expect(inventoryPage.navigationMenu).toBeVisible()

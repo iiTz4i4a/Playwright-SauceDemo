@@ -1,4 +1,4 @@
-import { type Locator, type Page } from "@playwright/test";
+import { expect, type Locator, type Page } from "@playwright/test";
 
 export class CartPage {
 	readonly page: Page;
@@ -17,5 +17,8 @@ export class CartPage {
 		this.cartItemDescription = page.locator("div.inventory_item_desc");
 		this.cartItemPrice = page.locator("div.inventory_item_price");
 		this.cartItemRemoveButton = page.locator("button#remove-sauce-labs-backpack")
+	}
+	async expectCartPage() {
+		await expect(this.page).toHaveURL("https://www.saucedemo.com/cart.html")
 	}
 }
